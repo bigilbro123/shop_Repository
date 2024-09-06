@@ -4,7 +4,7 @@ function Logo({ w, h }) {
     return (
         <>
             <svg width={w} height={h}
-                viewBox="0 0 370.16679528778167 155.08501865265873" class="css-1j8o68f">
+                viewBox="0 0 370.16679528778167 155.08501865265873" className="css-1j8o68f">
                 <defs id="SvgjsDefs1029"></defs>
                 <g id="SvgjsG1030" featurekey="symbolFeature-0"
                     transform="matrix(1.0366270169158764,0,0,1.0366270169158764,-1.4512779225426833,25.1808949373991)"
