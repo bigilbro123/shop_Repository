@@ -25,6 +25,10 @@ function App() {
       if (DataApi.success) {
         dispatch(setUserDeatil(DataApi.data))
       }
+      if (DataApi.error) {
+        console.log("please login");
+
+      }
 
     } catch (error) {
       console.error('Failed to fetch user details:', error);
@@ -41,12 +45,13 @@ function App() {
       <Context.Provider value={{
         fetchUserDetail
       }}>
-        <ToastContainer />
+
         <Header />
         <main className='min-h-[calc(100vh-120px)]'>
           <Outlet />
         </main>
         <Footer />
+        <ToastContainer />
       </Context.Provider >
     </>
   );

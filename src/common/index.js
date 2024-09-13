@@ -26,6 +26,26 @@ const summaryApi = {
     updateuser: {
         url: `${BackendDomian}/api/update-user`,
         method: "post",
+    },
+    uploadproduct: {
+        url: `${BackendDomian}/api/upload-product`,
+        method: 'post'
+    },
+    allproduct: {
+        url: `${BackendDomian}/api/Get-allproduct`,
+        method: 'get'
+    },
+    updateproduct: {
+        url: `${BackendDomian}/api/update-product`,
+        method: 'post'
+    },
+    category: {
+        url: `${BackendDomian}/api/get-catogory`,
+        method: 'get'
+    },
+    categoryWiseProduct: {
+        url: `${BackendDomian}/api/category-product`,
+        method: 'post'
     }
 }
 export default summaryApi

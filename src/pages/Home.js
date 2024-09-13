@@ -1,8 +1,18 @@
 import React from 'react'
+import CategList from './CategList'
+import BannerProduct from '../components/BannerProduct'
+import HoriZontal from '../components/HoriZontal'
+import Vertical from '../components/Vertical'
 
-const Home = () => {
+function Home() {
     return (
-        <div>Home</div>
+        <div>
+            <CategList />
+            <BannerProduct />
+            <HoriZontal heading={"Top's Aripodes"} categorys={"airports"} />
+            <HoriZontal heading={" Camera"} categorys={"camera"} />
+            <Vertical heading={"Mobile"} categorys={"mobile"} />
+        </div>
     )
 }
 

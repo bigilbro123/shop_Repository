@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import { IoMdClose } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import productCategory from '../helper/productCatogory';
@@ -6,26 +7,22 @@ import productCategory from '../helper/productCatogory';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import UploadImage from '../helper/Uploadimage';
 import DisplayImage from './DisplayImage';
-import { toast, ToastContainer } from 'react-toastify';
 import summaryApi from '../common';
 
-
-console.log(productCategory);
-
-const UploadProduct = ({
-    onClose, Allprod
-}) => {
-
-
+function AdminEdit({
+    onClose,
+    datas,
+    fetchdata
+}) {
     const [data, setData] = useState({
-
-        productName: '',
-        brandName: '',
-        category: '',
-        productImage: [],
-        description: '',
-        price: '',
-        selling: ''
+        ...datas,
+        productName: datas?.productName,
+        brandName: datas?.brandName,
+        category: datas?.category,
+        productImage: datas.productImage || [],
+        description: datas?.description,
+        price: datas?.price,
+        selling: datas?.selling
     })
     const [uplaod, setUpload] = useState('')
     const handleChange = (e) => {
@@ -37,40 +34,10 @@ const UploadProduct = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('aaaaaaaaaaaa' + data);
-        if (!data.brandName) {
+        console.log(data);
 
-            return toast.error("Enter brand name")
-
-        }
-        if (!data.category) {
-
-            return toast.error("select category")
-
-        }
-        if (!data.description) {
-
-            return toast.error("Enter description")
-
-        }
-        if (!data.price) {
-
-            return toast.error("Enter price")
-
-        }
-        if (!data.productName) {
-
-            return toast.error("Enter product name")
-
-        }
-        if (!data.selling) {
-
-            return toast.error("Enter selling price")
-
-        }
-
-        const respons = await fetch(summaryApi.uploadproduct.url, {
-            method: summaryApi.uploadproduct.method,
+        const respons = await fetch(summaryApi.updateproduct.url, {
+            method: summaryApi.updateproduct.method,
             credentials: 'include',
             headers: {
                 "content-type": "application/json"
@@ -82,7 +49,7 @@ const UploadProduct = ({
         if (responsDATA) {
 
             toast.success("Product uploaded")
-            Allprod()
+            fetchdata()
             setTimeout(() => onClose(), 2000);
 
         }
@@ -131,6 +98,9 @@ const UploadProduct = ({
 
         toast.success("Image deleted successfully");
     }
+    const [toggle, setToggle] = useState({});
+
+
 
     return (
         <div className="bg-slate-200 bg-opacity-40 w-full h-full absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
@@ -182,7 +152,7 @@ const UploadProduct = ({
                             id="category"
                         >
                             {productCategory.map((item, index) => (
-                                <option key={index} value={item.value} style={{ background: item.style }} >
+                                <option key={index} value={item.value}>
                                     {item.label}
                                 </option>
                             ))}
@@ -291,10 +261,7 @@ const UploadProduct = ({
             <ToastContainer />
         </div>
 
-
-
-
     )
 }
 
-export default UploadProduct
+export default AdminEdit

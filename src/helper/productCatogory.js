@@ -1,5 +1,11 @@
 const productCategory = [
     {
+        id: 0,
+        label: "Select Category",
+        style: 'red',
+        value: null
+    },
+    {
         id: 1,
         label: "Airports",
         value: "airports"
@@ -41,8 +47,8 @@ const productCategory = [
     },
     {
         id: 9,
-        label: "Timer",
-        value: "timer"
+        label: "Trimmer ",
+        value: "trimmer "
     },
     {
         id: 10,
