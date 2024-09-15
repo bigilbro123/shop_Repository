@@ -89,15 +89,15 @@ const UploadProduct = ({
         if (!responsDATA) {
             toast.error("something went wrong")
         }
-        console.log(responsDATA);
+        // console.log(responsDATA);
 
 
     };
     const handleuploadChange = async (e) => {
         const files = e.target.files[0]
-        console.log('file' + files);
+        // console.log('file' + files);
 
-        console.log(uplaod);
+        // console.log(uplaod);
         const uploadImaga = await UploadImage(files)
         setData((prev) => {
             return {
@@ -109,7 +109,7 @@ const UploadProduct = ({
 
 
 
-        console.log('upload', uploadImaga);
+        // console.log('upload', uploadImaga);
 
     }
     const [selectedImage, setSelectedImage] = useState(null);

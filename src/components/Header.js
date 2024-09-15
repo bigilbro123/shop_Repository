@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Logo from './Logo'
 import { setUserDeatil } from '../store/userSlice';
 import ROLE from '../common/role';
-
+import online from '../assest/assest/banner/onlineshopping.png'
 
 
 
@@ -47,11 +47,11 @@ function Header() {
 
 
     return (
-        <header className='h-16 shadow-md bg-white'>
+        <header className='h-16 shadow-md bg-white fixed w-full z-50'>
             <div className=" h-full container mx-auto flex items-center px-4 justify-between">
                 <div>
                     <Link to={'/'}>
-                        <Logo h={90} w={50} />
+                        <img src={online} alt="" width={"60px"} />
                     </Link>
                 </div>
 

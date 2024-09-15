@@ -22,7 +22,7 @@ const CategList = () => {
 
             // Parse the response data
             const data = await response.json();
-            console.log("Fetched data:", data);
+            // console.log("Fetched data:", data);
             setDatas(data)
             setLoading(false)
 

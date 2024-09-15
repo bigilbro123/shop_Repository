@@ -8,14 +8,18 @@ function AllProduct() {
     const [upload, setUpload] = useState(false)
     const [allProducts, setAllproducts] = useState([])
     const Allprod = async () => {
-        const dataRes = await fetch(summaryApi.allproduct.url, {
-            method: summaryApi.allproduct.method,
-            credentials: 'include'
-        })
+        try {
+            const dataRes = await fetch(summaryApi.allproduct.url, {
+                method: summaryApi.allproduct.method,
+                credentials: 'include'
+            })
 
-        const resdatares = await dataRes.json()
+            const resdatares = await dataRes.json()
 
-        setAllproducts(resdatares?.data)
+            setAllproducts(resdatares?.data)
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 
 
