@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import fetchCategoryWiseProduct from '../helper/fechtCategoryWiseProduct'
 import displayINRcurrency from '../helper/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom';
 import addToCart from '../helper/AddToCart';
-import Context from '../context';
 
 
-function Vertical({
+function ProductDispaly({
     HoriZontal, heading, categorys, display
 }) {
     const [scroll, setScroll] = useState(0)
-    const scrollelement = useRef()
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -30,43 +28,11 @@ function Vertical({
 
 
     }
-    const { fechAddtoCart } = useContext(Context);
-    const handleAddToCart = async (e, id) => {
-
-        try {
-            await addToCart(e, id)
-            fechAddtoCart()
-        } catch (error) {
-            throw new Error(error)
-        }
-
-    }
 
     useEffect(() => {
         fectData()
     }, [])
 
-    const scrollRight = () => {
-        scrollelement.current.scrollBy({
-            left: 300,
-            behavior: 'smooth'
-        });
-    }
-
-    const scrollLeft = () => {
-        scrollelement.current.scrollBy({
-            left: -300,
-            behavior: 'smooth'
-        });
-    }
-    const [toggle, setToggle] = useState(false); // State initialization
-
-    // Only update toggle once when the component mounts
-    useEffect(() => {
-        setToggle(true);
-    }, []); // Empty dependency array ensures this runs only once
-
-    console.log(toggle); //// Ensure this is only called after toggle is initialized
 
 
     return (
@@ -74,11 +40,7 @@ function Vertical({
             <h2 className='text-2xl font-semibold  py-4' >
                 {heading}
             </h2>
-            <div className='flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all' ref={scrollelement}>
-                <button className='bg-white text-lg hidden md:block shadow-md rounded-full p-1 absolute left-0' onClick={() => scrollLeft()}>
-                    <FaAngleLeft />
-                </button>
-                <button className='bg-white text-lg hidden md:block shadow-md rounded-full p-1 absolute right-0' onClick={() => scrollRight()}><FaAngleRight /></button>
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] md:gap-6 justify-between overflow-x-scroll scrollbar-none transition-all' >
 
                 {loading ? loadingList.map((item, index) => {
                     return (
@@ -178,7 +140,7 @@ function Vertical({
                                         <del><p title={Math.floor(((item?.price - item?.selling) / item?.price) * 100) + '%'} className='text-slate-500'>{displayINRcurrency(item.price)}</p></del>
 
                                     </div>
-                                    <button onClick={(e) => handleAddToCart(e, item?._id)} className='bg-red-600 text-sm hover:bg-red-700 text-white px-3 py-0.5 rounded-full'>Add to Cart</button>
+                                    <button onClick={(e) => addToCart(e, item?._id)} className='bg-red-600 text-sm hover:bg-red-700 text-white px-3 py-0.5 rounded-full'>Add to Cart</button>
 
                                 </div>
                             </Link>
@@ -190,4 +152,4 @@ function Vertical({
     )
 }
 
-export default Vertical
+export default ProductDispaly

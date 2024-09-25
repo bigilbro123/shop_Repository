@@ -33,8 +33,7 @@ function Alluser() {
                 toast.error("ERROR: Data format is incorrect");
             }
         } catch (error) {
-            console.error("Fetch error:", error);
-            toast.error("ERROR: Failed to fetch users");
+            throw new Error(error)
         }
     };
 

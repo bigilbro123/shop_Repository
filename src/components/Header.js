@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { GrSearch } from "react-icons/gr";
@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 import summaryApi from '../common';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Logo from './Logo'
+
 import { setUserDeatil } from '../store/userSlice';
 import ROLE from '../common/role';
 import online from '../assest/assest/banner/onlineshopping.png'
+import Context from '../context';
 
 
 
@@ -21,7 +22,13 @@ function Header() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const user = useSelector(state => state?.user?.user)
-    console.log("HEADER" + user);
+
+
+    const context = useContext(Context)
+    console.log(context);
+
+
+
     const handleLogout = async () => {
         const fectData = await fetch(summaryApi.LOGOUT.url, {
             method: summaryApi.LOGOUT.method,
@@ -43,7 +50,9 @@ function Header() {
         }
 
     }
+
     // alert(process.env.CLOUD_NAME)
+
 
 
     return (
@@ -76,12 +85,12 @@ function Header() {
                     </div>
 
                     <div>
-                        {!user ? null : <div className='text-2xl cursor-pointer relative rounded'>
+                        {!user ? null : <Link to={'/cart-product-view'} className='text-2xl cursor-pointer relative rounded'>
                             <span><FaShoppingCart /></span>
                             <div className='bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center absolute -top-2 -right-3'>
-                                <p className='text-xs'>0</p>
+                                <p className='text-xs'>{context?.datacount.data || '0'}</p>
                             </div>
-                        </div>}
+                        </Link>}
                     </div>
                     <div>
                         {!user ?

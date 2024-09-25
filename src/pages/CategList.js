@@ -30,8 +30,7 @@ const CategList = () => {
 
 
         } catch (error) {
-            console.error("Fetching error:", error);
-            toast.error("Failed to fetch data");
+            throw new Error(error)
         }
     };
 

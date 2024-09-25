@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../helper/fechtCategoryWiseProduct'
 import displayINRcurrency from '../helper/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom';
 import addToCart from '../helper/AddToCart';
+import Context from '../context';
 
 function HoriZontal({
     HoriZontal, heading, categorys
@@ -14,7 +15,17 @@ function HoriZontal({
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     const loadingList = new Array(13).fill(null)
+    const { fechAddtoCart } = useContext(Context);
+    const handleAddToCart = async (e, id) => {
 
+        try {
+            await addToCart(e, id)
+            fechAddtoCart()
+
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
     const fectData = async () => {
         try {
             setLoading(true)
@@ -46,6 +57,15 @@ function HoriZontal({
             behavior: 'smooth'
         });
     }
+    const [toggle, setToggle] = useState(false); // State initialization
+
+    // Only update toggle once when the component mounts
+    useEffect(() => {
+        setToggle(true);
+    }, []); // Empty dependency array ensures this runs only once
+
+    console.log(toggle); //// Ensure this is only called after toggle is initialized
+
 
     return (
         <div className='container mx-auto px-4 my-6 relative'>
@@ -105,7 +125,7 @@ function HoriZontal({
                         console.log(item);
 
                         return (
-                            <Link to={"product/" + item?._id} className='w-full min-w-[280px] md:min-w-[340px] max-w-[320px] h-40 bg-white rounded-sm shadow flex' key={index}>
+                            <Link to={"/product/" + item?._id} className='w-full min-w-[280px] md:min-w-[340px] max-w-[320px] h-40 bg-white rounded-sm shadow flex' key={index}>
                                 <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] '>
                                     <img src={item.productImage[1]} alt="" className='object-scale-down h-full mix-blend-multiply hover:scale-110 transition-all' />
                                 </div>
@@ -118,7 +138,7 @@ function HoriZontal({
                                         <del><p title={Math.floor(((item?.price - item?.selling) / item?.price) * 100) + '%'} className='text-slate-500'>{displayINRcurrency(item.price)}</p></del>
 
                                     </div>
-                                    <button onClick={(e) => addToCart(e, item?._id)} className='bg-red-600 text-sm hover:bg-red-700 text-white px-3 py-0.5 rounded-full'>Add to Cart</button>
+                                    <button onClick={(e) => handleAddToCart(e, item?._id)} className='bg-red-600 text-sm hover:bg-red-700 text-white px-3 py-0.5 rounded-full'>Add to Cart</button>
 
                                 </div>
                             </Link>

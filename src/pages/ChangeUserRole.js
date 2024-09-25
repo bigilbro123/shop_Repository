@@ -42,8 +42,7 @@ const ChangeUserRole = ({
             }
             console.log(responseData);
         } catch (error) {
-            console.error("Update error:", error);
-            toast.error("ERROR: Failed to update user role");
+            throw new Error(error)
         }
     };
 

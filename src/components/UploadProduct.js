@@ -35,59 +35,63 @@ const UploadProduct = ({
         });
     };
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        try {
+            e.preventDefault();
 
-        console.log('aaaaaaaaaaaa' + data);
-        if (!data.brandName) {
+            console.log('aaaaaaaaaaaa' + data);
+            if (!data.brandName) {
 
-            return toast.error("Enter brand name")
+                return toast.error("Enter brand name")
 
-        }
-        if (!data.category) {
+            }
+            if (!data.category) {
 
-            return toast.error("select category")
+                return toast.error("select category")
 
-        }
-        if (!data.description) {
+            }
+            if (!data.description) {
 
-            return toast.error("Enter description")
+                return toast.error("Enter description")
 
-        }
-        if (!data.price) {
+            }
+            if (!data.price) {
 
-            return toast.error("Enter price")
+                return toast.error("Enter price")
 
-        }
-        if (!data.productName) {
+            }
+            if (!data.productName) {
 
-            return toast.error("Enter product name")
+                return toast.error("Enter product name")
 
-        }
-        if (!data.selling) {
+            }
+            if (!data.selling) {
 
-            return toast.error("Enter selling price")
+                return toast.error("Enter selling price")
 
-        }
+            }
 
-        const respons = await fetch(summaryApi.uploadproduct.url, {
-            method: summaryApi.uploadproduct.method,
-            credentials: 'include',
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        const responsDATA = await respons.json()
+            const respons = await fetch(summaryApi.uploadproduct.url, {
+                method: summaryApi.uploadproduct.method,
+                credentials: 'include',
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            const responsDATA = await respons.json()
 
-        if (responsDATA) {
+            if (responsDATA) {
 
-            toast.success("Product uploaded")
-            Allprod()
-            setTimeout(() => onClose(), 2000);
+                toast.success("Product uploaded")
+                Allprod()
+                setTimeout(() => onClose(), 2000);
 
-        }
-        if (!responsDATA) {
-            toast.error("something went wrong")
+            }
+            if (!responsDATA) {
+                toast.error("something went wrong")
+            }
+        } catch (error) {
+            throw new Error(error)
         }
         // console.log(responsDATA);
 

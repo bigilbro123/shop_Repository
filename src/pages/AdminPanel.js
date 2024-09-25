@@ -12,19 +12,23 @@ function AdminPanel() {
     // var names = user?.name
     // var firstL = names.slice(0, 1).toUpperCase()
     const handleLogout = async () => {
-        const fectData = await fetch(summaryApi.LOGOUT.url, {
-            method: summaryApi.LOGOUT.method,
-            credentials: 'include'
-        })
-        const data = await fectData.json()
-        if (data.error) {
-            toast.error("Logout failed")
-        }
-        if (data.success) {
-            toast.success("Logout success");
-            setTimeout(() => {
-                dispatch(setUserDeatil(null))
-            },)
+        try {
+            const fectData = await fetch(summaryApi.LOGOUT.url, {
+                method: summaryApi.LOGOUT.method,
+                credentials: 'include'
+            })
+            const data = await fectData.json()
+            if (data.error) {
+                toast.error("Logout failed")
+            }
+            if (data.success) {
+                toast.success("Logout success");
+                setTimeout(() => {
+                    dispatch(setUserDeatil(null))
+                },)
+            }
+        } catch (error) {
+            throw new Error(error)
         }
 
     }

@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import summaryApi from './common';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Context from './context';
 import { useDispatch } from 'react-redux'
 import { setUserDeatil } from './store/userSlice';
@@ -14,6 +14,7 @@ import { setUserDeatil } from './store/userSlice';
 
 function App() {
   const dispatch = useDispatch()
+  const [datacount, setDatacount] = useState(0)
   const fetchUserDetail = async () => {
     try {
       // alert('fetch')
@@ -34,16 +35,39 @@ function App() {
       console.error('Failed to fetch user details:', error);
     }
   };
+  const fechAddtoCart = async () => {
+    try {
+      const fetchData = await fetch(summaryApi.cartCound.url, {
+        method: summaryApi.cartCound.method,
+        credentials: 'include',
+        headers: {
+          "content-type": "application/json",
+        }
+      })
+      const respons = await fetchData.json()
+      console.log("kjnsfgjdfgjkdfj" + respons.data);
+      setDatacount(respons)
+
+
+
+    } catch (error) {
+      console.log("error");
+
+    }
+  }
 
 
   useEffect(() => {
     fetchUserDetail();
+    fechAddtoCart()
   }, []);
 
   return (
     <>
       <Context.Provider value={{
-        fetchUserDetail
+        fetchUserDetail,
+        datacount,
+        fechAddtoCart
       }}>
 
         <Header />

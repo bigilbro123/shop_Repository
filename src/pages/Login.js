@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import loginicon from '../assest/assest/signin.gif';
 import { FaEye } from "react-icons/fa";
 import { PiEyeClosedBold } from "react-icons/pi";
@@ -24,6 +24,15 @@ function Login() {
             ...prev, [name]: value
         }));
     };
+    const [toggle, setToggle] = useState(false); // State initialization
+
+    // Only update toggle once when the component mounts
+    useEffect(() => {
+        setToggle(true);
+    }, []); // Empty dependency array ensures this runs only once
+
+    console.log(toggle); //// Ensure this is only called after toggle is initialized
+
 
     const navigate = useNavigate();
 
@@ -49,6 +58,7 @@ function Login() {
 
                     navigate('/');
                     GeneralContext.fetchUserDetail()
+                    GeneralContext.fechAddtoCart()
                 }, 2000);
             } else {
                 toast.error(result.error || 'Email or password is incorrect');
